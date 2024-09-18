@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+
+import React, { useState } from 'react';
+import UserSignup from './components/UserSignup';
+import UserLogin from './components/UserLogin';
+
+import Couriers from './components/Couriers';
+import Cart from './components/Cart';
+import Navbar from './components/Navbar';
+import { Route, Routes } from 'react-router-dom';
+
+
+const App = () => {
+    const [cartItems, setCartItems] = useState([]);
+
+    // Function to add courier to cart
+    const addToCart = (courier) => {
+        setCartItems((prevCart) => [...prevCart, courier]);
+    };
+
+    // Function to remove courier from cart
+    const removeFromCart = (courier) => {
+        setCartItems((prevCart) => prevCart.filter(item => item.courseId !== courier.courseId));
+    };
+
+
+    return (
+        <div>
+            <Navbar/>
+            {/* <Navbar />
+            <UserSignup />
+            <UserLogin />
+
+
+
+            <Couriers addToCart={addToCart} />
+            <Cart cartItems={cartItems} removeFromCart={removeFromCart} /> */}
+
+            <Routes>
+                <Route path='/usersignup' element={<UserSignup />} />
+                <Route path='/userlogin' element={<UserLogin />} />
+                <Route path='/couriers' element={<Couriers addToCart={addToCart} />} />
+                {/* <Route path='/cart' element={<cart />} /> */}
+                <Route path='/cart' element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} />} />
+
+            </Routes>
+
+        </div>
+    );
+};
 
 export default App;
