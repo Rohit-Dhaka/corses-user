@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import UserSignup from './components/UserSignup';
 import UserLogin from './components/UserLogin';
@@ -8,6 +6,7 @@ import Couriers from './components/Couriers';
 import Cart from './components/Cart';
 import Navbar from './components/Navbar';
 import { Route, Routes } from 'react-router-dom';
+
 
 
 const App = () => {
@@ -26,7 +25,7 @@ const App = () => {
 
     return (
         <div>
-            <Navbar/>
+            <Navbar />
             {/* <Navbar />
             <UserSignup />
             <UserLogin />
@@ -38,9 +37,8 @@ const App = () => {
 
             <Routes>
                 <Route path='/usersignup' element={<UserSignup />} />
-                <Route path='/userlogin' element={<UserLogin />} />
-                <Route path='/couriers' element={<Couriers addToCart={addToCart} />} />
-                {/* <Route path='/cart' element={<cart />} /> */}
+                <Route path='/userlogin' element={<UserLogin />} />                
+                <Route path='/couriers' element={<Couriers addToCart={addToCart} />} />                
                 <Route path='/cart' element={<Cart cartItems={cartItems} removeFromCart={removeFromCart} />} />
 
             </Routes>

@@ -1,23 +1,27 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const UserSignup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3000/user/signup', { name, email, password });
+            console.log(response.data); // Logging the response
             setMessage(response.data.msg);
+            navigate('/UserLogin'); // Redirect to login page after successful signup
         } catch (error) {
-            setMessage('Error: ' + error.response.data);
+            setMessage('Error: ' + (error.response?.data || 'Something went wrong')); // Handling error if no response
         }
+        // Reset form fields
         setName('');
         setEmail('');
-        setPassword('')
-    };
+        setPassword('');
+    };  
     return (
         <section className='bg-gray-200 min-h-screen flex items-center justify-center'>
             <div className='bg-white max-w-[450px]  rounded-lg shadow-lg py-[24px] px-[12px] '>
@@ -38,7 +42,7 @@ const UserSignup = () => {
                     </div>
                     <button type="submit" className='py-2 bg-[#073E87] text-white font-medium w-full rounded-md  mt-7  '>Sign Up</button>
                     {message && <p>{message}</p>}
-                    <h6 className='font-Poppins font-medium text-[#747D8C] pt-2'>Already have an account<Link to='/userlogin' className='text-[#073E87] font-semibold'> Login</Link></h6>                    
+                    <h6 className='font-Poppins font-medium text-[#747D8C] pt-2'>Already have an account<Link to='/userlogin' className='text-[#073E87] font-semibold'> Login</Link></h6>
                 </form>
             </div>
         </section>

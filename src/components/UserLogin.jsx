@@ -1,15 +1,19 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 const UserLogin = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
+    const navigate = useNavigate()
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await axios.post('http://localhost:3000/user/login', { email, password });
             setMessage('Login successful');
+            navigate('/couriers')
+            navigate('/card')
             localStorage.setItem('token', response.data.token);
         } catch (error) {
             setMessage('Error: ' + error.response.data);
